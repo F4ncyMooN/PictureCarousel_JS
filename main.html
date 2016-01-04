@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+	*{
+		margin: 0px;
+		padding: 0px;
+	}
+	.imgbtn{
+		height: 300px;
+		width: 400px;
+/*		background-color: red;
+*/		overflow-x: hidden;
+
+	}
+	.imgbtn ul{
+		overflow: hidden;
+		margin: 0px;
+		position: relative;
+	}
+	.imgbtn ul li{
+		float: left;
+		list-style-type: none;
+	}
+	.imgbtn ul li img{
+		float: left;
+		height: 300px;
+		width: 400px;
+	}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+
+<div class="imgbtn">
+	<ul id="imgs">
+		<li><img src="http://img.taopic.com/uploads/allimg/130501/240451-13050106450911.jpg"/></li>
+		<li><img src="http://img4.3lian.com/sucai/img6/230/29.jpg"/></li>
+		<li><img src="http://www.leawo.cn/file.php?name=201308/8/1240101_13759242814S03.jpg"/></li>
+		<li><img src="http://img.taopic.com/uploads/allimg/130501/240451-13050106450911.jpg"/></li>
+	</ul>
+</div>
+<p id="console"></p>
+<script>
+
+initImgBtn(300,100);
+function px2int(str){
+	str.replace(/px/,"");
+	return parseInt(str);
+}
+
+function initImgBtn(width,height){
+	var imgbtn = $(".imgbtn");
+	$(".imgbtn ul").width($(".imgbtn ul li img").size()*$(".imgbtn ul li img").width());
+	$(".imgbtn ul").height($(".imgbtn ul li img").height());
+	//start();
+	$(".imgbtn ul").css("left","0px");
+	var time = setInterval(function(){
+		var now = (-1)*px2int($(".imgbtn ul").css("left"))/($("#imgs li img").width());
+		$("#console").html(now+" "+($(".imgbtn ul li img").size()-1));
+		move(now);
+		now++;
+		if(now > $(".imgbtn ul li img").size()-2){
+			//initialize
+			$("#imgs").animate(
+			{
+				left:"0px"
+			}
+			,1);
+			//now = 0;
+		}
+	},3000);
+
+
+}
+
+function move(iNow){
+	//alert($("#imgs").css("left"));
+	iNow = iNow+1;
+	var l = (-1*iNow*$("#imgs li img").width())+"px";
+	//alert(l);
+	//if(moveLeft){
+		var leftNow = $("#imgs li img").css("width");
+		//alert(leftNow);
+		//leftNow = leftNow - $(".imgbtn ul li img").width();
+		
+		$("#imgs").animate(
+			{
+				left:l
+			}
+			,"slow");
+	//}
+}
+</script>
+</body>
+</html>
